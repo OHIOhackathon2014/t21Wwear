@@ -15,11 +15,20 @@ Team Members
       <li>OSU</li>
       <li>4th</li>
       <li>CSE</li>
+    </ul>
   </li>
   <li> Viral Patel
     <ul>
       <li>OSU</li>
       <li>2nd</li>
       <li>CSE</li>
+    </ul>
+  </li>
+  <li> Benjamin Stammen
+    <ul>
+      <li>OSU</li>
+      <li>2nd</li>
+      <li>CSE</li>
+    </ul>
   </li>
 </ul>
