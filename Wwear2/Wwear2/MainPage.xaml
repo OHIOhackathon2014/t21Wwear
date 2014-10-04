@@ -37,28 +37,37 @@
          -->
 
         <!--Pivot Control-->
-        <phone:Pivot Title="MY APPLICATION">
+        <phone:Pivot Title="WeatherWear">
             <!--Pivot item one-->
-            <phone:PivotItem Header="first" Margin="0,32,0,-4">
-                <TextBox HorizontalAlignment="Left" Height="72" Margin="14,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="456"/>
+            <phone:PivotItem Header="Clothes" Margin="31,525,10,-3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Image x:Name="cameraImage" Grid.Row="0" Margin="0,-516,0,30"/>
+                    <Button Grid.Row="1" Content="Camera" Click="Button_Click_2"/>
+                </Grid>
 
             </phone:PivotItem>
 
             <!--Pivot item two-->
-            <phone:PivotItem Header="second">
+            <phone:PivotItem Header="Weather" Margin="14,30,10,-2">
+
                 <!--Double line list no text wrapping-->
-                <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <phone:LongListSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Name="WeatherBox"  Text=""/>
+                    <Button Grid.Row="1" Content="Refresh Data" Click="Button_Click_1"/>
+                    <ProgressBar IsIndeterminate="True" HorizontalAlignment="Center" Height="20" Margin="0,222,-2,0" VerticalAlignment="Top" Width="458"/>
+                </Grid>
+
             </phone:PivotItem>
         </phone:Pivot>
+
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
             aligned on common boundaries.  The image has a top margin of -32px to

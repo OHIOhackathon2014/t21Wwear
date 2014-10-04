@@ -19,7 +19,7 @@ namespace Wwear2
         public string tempMaxC { get; set; }
         public string tempMinC { get; set; }
         public string weatherIconUrl { get; set; }
-        public string windspeedKmph { get; set; }
+        public string windspeedMph { get; set; }
         public string humidity { get; set; }
         public string city { get; set; }
 
@@ -57,7 +57,10 @@ namespace Wwear2
                 //Begin parsing
                 parentTag = xmlWeather.Descendants("location").First();
                 city = (string)(parentTag.Element("name"));
-                Debug.WriteLine(city);
+                parentTag = xmlWeather.Descendants("forecast").First();
+                tempMinC = (string)(parentTag.Element("time").Element("temperature").Attribute("min"));
+                tempMaxC = (string)(parentTag.Element("time").Element("temperature").Attribute("max"));
+                windspeedMph = (string)(parentTag.Element("time").Element("windSpeed").Attribute("mps"));
             }
             catch (FormatException)
             {

@@ -50,11 +50,8 @@ namespace Wwear2
 
         }
 
-        public void UpdateUI()
-        {
 
-        }
-        // Sample code for building a localized ApplicationBar
+        //// Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{
         //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
@@ -62,12 +59,28 @@ namespace Wwear2
 
         //    // Create a new button and set the text value to the localized string from AppResources.
         //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
+        //    appBarButton.Text = "refresh";
         //    ApplicationBar.Buttons.Add(appBarButton);
 
         //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
+        //    //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
+        //    //ApplicationBar.MenuItems.Add(appBarMenuItem);
         //}
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            WeatherBox.Text = "Low: " + fourcast.tempMinC + "\n" + 
+                "High: " + fourcast.tempMaxC + "\n" + 
+                "Wind Speed (mph): " + fourcast.windspeedMph;
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Camera camera = new Camera();
+            camera.startCamera(cameraImage);
+
+
+        }
     }
 }
