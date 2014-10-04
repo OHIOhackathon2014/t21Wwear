@@ -75,17 +75,11 @@ namespace Wwear2
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            
-
-
-        }
-
         private void Add_Item(object sender, EventArgs e)
         {
-            Camera camera = new Camera();
-            camera.startCamera(cameraImage);
+            NavigationService.Navigate(new Uri("/NewClothing.xaml", UriKind.Relative));
         }
+
+        
     }
 }
