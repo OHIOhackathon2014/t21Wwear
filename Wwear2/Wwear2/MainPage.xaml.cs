@@ -11,6 +11,9 @@ using Wwear2.Resources;
 using System.IO.IsolatedStorage;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Device.Location;
+using Windows.Devices.Geolocation;
+using System.Diagnostics;
 
 namespace Wwear2
 {
@@ -18,8 +21,11 @@ namespace Wwear2
     {
 
         Forecast fourcast;
-            
-        
+        string hat = "Baseball Cap";
+        string body = "T-Shirt";
+        string legs = "Sweat Pants";
+        string shoes = "Boots";
+
         // Constructor
         public MainPage()
         {
@@ -29,25 +35,36 @@ namespace Wwear2
             DataContext = App.ViewModel;
 
             fourcast = new Forecast();
+            
             //Check for network connection
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 MessageBox.Show("Network Unavailable");
                 return;
             }
-            else
-            {
-                
-                fourcast.GetForecast();
-            }
+
+            getLocation();
         }
 
-        // Load data for the ViewModel Items
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async void getLocation()
         {
+            Geolocator locator = new Geolocator();
+            string lat, lon;
 
-            
-
+            if (!locator.LocationStatus.Equals(PositionStatus.Disabled))
+            {
+               
+                Geoposition position = await locator.GetGeopositionAsync();
+                
+                lat = position.Coordinate.Point.Position.Latitude.ToString();
+                lon = position.Coordinate.Point.Position.Longitude.ToString();
+                fourcast.GetForecast(lat,lon);
+            }
+            else
+            {
+                MessageBox.Show("GeoLocation services are turned off.", AppResources.ApplicationTitle, MessageBoxButton.OK);
+                return;
+            }
         }
 
 
@@ -69,10 +86,9 @@ namespace Wwear2
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            WeatherBox.Text = "Low: " + fourcast.tempMinC + "\n" + 
-                "High: " + fourcast.tempMaxC + "\n" + 
-                "Wind Speed (mph): " + fourcast.windspeedMph;
 
+            getLocation();
+            updateWeather();
         }
 
         private void Add_Item(object sender, EventArgs e)
@@ -80,6 +96,61 @@ namespace Wwear2
             NavigationService.Navigate(new Uri("/NewClothing.xaml", UriKind.Relative));
         }
 
-        
+        private void suggestClothes(object sender, RoutedEventArgs e)
+        {
+            //Suggest Hat
+            if (fourcast.tempMinF > 30)
+            {
+                HeadSuggestion.Text = hat;
+            }
+            else
+            {
+                HeadSuggestion.Text = "No Hat Bro";
+            }
+            //Suggest body
+            if (fourcast.tempMinF < 50)
+            {
+                BodySuggestion.Text = body;
+            }
+            else
+            {
+                BodySuggestion.Text = "No shirts Bro";
+            }
+            //Suggest pants
+            if (fourcast.tempMinF < 30)
+            {
+                LegSuggestion.Text = legs;
+            }
+            else
+            {
+                LegSuggestion.Text = "No Pants Bro";
+            }
+
+            //Suggest feet
+            if (fourcast.tempMinF < 30)
+            {
+                FeetSuggestion.Text = shoes;
+            }
+            else
+            {
+                FeetSuggestion.Text = "No boots pour vous";
+            }
+        }
+
+        private void updateWeather(){
+            string precipitation = "No precipitation";
+
+            if (fourcast.precip != null)
+            {
+                precipitation = fourcast.precip + "%";
+            }
+
+            WeatherBox.Text = "Low: " + fourcast.tempMinF.ToString() + "\n" +
+                "High: " + fourcast.tempMaxF.ToString() + "\n" +
+                "Wind Speed (mph): " + fourcast.windspeedMph + "\n" +
+                "Precipitation Rate: " + precipitation + " \n" +
+                "Humidity Rate: " + fourcast.humidity + "%";
+        }
     }
 }
+

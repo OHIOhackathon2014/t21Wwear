@@ -14,11 +14,16 @@ namespace Wwear2
 {
     public partial class NewClothing : PhoneApplicationPage
     {
+        List<String> ItemsListProperty { set; get; }
         PhotoChooserTask photoChooserTask;
 
         public NewClothing()
         {
             InitializeComponent();
+            ItemsListProperty = new List<string>();
+            //ListboxTest.DataContext = ItemsListProperty;
+            ItemsListProperty.Add("hi");
+            ItemsListProperty.Add("Hello Again");
             photoChooserTask = new PhotoChooserTask();
             photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
             photoChooserTask.PixelHeight = 400;
@@ -39,6 +44,12 @@ namespace Wwear2
                 bmp.SetSource(e.ChosenPhoto);
                 imageFrame.Source = bmp;
             }
+        }
+
+        private void Confirm_Click(object sender, EventArgs e)
+        {
+            //add to database and clear all parameters
+            
         }
 
     }

@@ -18,15 +18,18 @@ namespace Wwear2
         public string temp_C { get; set; }
         public string tempMaxC { get; set; }
         public string tempMinC { get; set; }
+        public double tempMaxF { get; set; }
+        public double tempMinF { get; set; }
         public string weatherIconUrl { get; set; }
         public string windspeedMph { get; set; }
         public string humidity { get; set; }
+        public string precip { get; set; }
         public string city { get; set; }
 
-        public void GetForecast()
+        public void GetForecast(string lat, string lon)
         {
             UriBuilder simpleUri = new UriBuilder("api.openweathermap.org/data/2.5/forecast?");
-            simpleUri.Query = "lat=39.0&lon=-82.0&mode=xml";
+            simpleUri.Query = "lat="+lat+"&lon="+lon+"&mode=xml";
 
             HttpWebRequest forecast = (HttpWebRequest)WebRequest.Create(simpleUri.Uri);
 
@@ -54,13 +57,30 @@ namespace Wwear2
                 //Finally xml
                 XElement xmlWeather = XElement.Load(retrievedData);
                 XElement parentTag;
+
                 //Begin parsing
+
+                //Gather City
                 parentTag = xmlWeather.Descendants("location").First();
                 city = (string)(parentTag.Element("name"));
+
+                //Gather Temp
                 parentTag = xmlWeather.Descendants("forecast").First();
                 tempMinC = (string)(parentTag.Element("time").Element("temperature").Attribute("min"));
                 tempMaxC = (string)(parentTag.Element("time").Element("temperature").Attribute("max"));
+
+                //Convert to farenheight
+                tempMinF = double.Parse(tempMinC) * (double)(9 / 5) + 32;
+                tempMaxF = double.Parse(tempMaxC) * (double)(9 / 5) + 32;
+
+                //Gather Wind Speed
                 windspeedMph = (string)(parentTag.Element("time").Element("windSpeed").Attribute("mps"));
+
+                //Gather humidity
+                humidity = (string)(parentTag.Element("time").Element("humidity").Attribute("value"));
+
+                //Gather precipitation
+                precip = (string)(parentTag.Element("time").Element("precipitation").Attribute("value"));
             }
             catch (FormatException)
             {
