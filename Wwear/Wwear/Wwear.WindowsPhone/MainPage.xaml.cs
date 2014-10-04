@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +23,16 @@ namespace Wwear
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private ObservableCollection<String> queries = new ObservableCollection<String>();
+        private int query;
+
+        private string weatherURL = "http://free.worldweatheronline.com/feed/weather.ashx?q=";
+        private string apiKey;
+
+        private localSettings appSettings;
+        const string QueriesSettingsKey = "QueriesKey";
+        const string APISettingsKey = "APIKey";
+
         public MainPage()
         {
             this.InitializeComponent();
