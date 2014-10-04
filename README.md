@@ -16,4 +16,10 @@ Team Members
       <li>4th</li>
       <li>CSE</li>
   </li>
+  <li> Viral Patel
+    <ul>
+      <li>OSU</li>
+      <li>2nd</li>
+      <li>CSE</li>
+  </li>
 </ul>
