@@ -8,11 +8,18 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Wwear2.Resources;
+using System.IO.IsolatedStorage;
+using System.Collections.ObjectModel;
+using System.Xml.Linq;
 
 namespace Wwear2
 {
     public partial class MainPage : PhoneApplicationPage
     {
+
+        Forecast fourcast;
+            
+        
         // Constructor
         public MainPage()
         {
@@ -21,19 +28,32 @@ namespace Wwear2
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
 
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
+            fourcast = new Forecast();
+            //Check for network connection
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                MessageBox.Show("Network Unavailable");
+                return;
+            }
+            else
+            {
+                
+                fourcast.GetForecast();
+            }
         }
 
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+
+            
+
         }
 
+        public void UpdateUI()
+        {
+
+        }
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{
