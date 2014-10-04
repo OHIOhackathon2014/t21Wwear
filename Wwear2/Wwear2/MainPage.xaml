@@ -13,7 +13,11 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar>
+            <shell:ApplicationBarIconButton x:Name="addItem" IconUri="Assets/AppBar/save.png" IsEnabled="True" Text="Add Item" Click="Add_Item"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
@@ -39,13 +43,13 @@
         <!--Pivot Control-->
         <phone:Pivot Title="WeatherWear">
             <!--Pivot item one-->
-            <phone:PivotItem Header="Clothes" Margin="31,525,10,-3">
+            <phone:PivotItem Header="Clothes" Margin="14,30,10,-2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <Image x:Name="cameraImage" Grid.Row="0" Margin="0,-516,0,30"/>
+                    <Image x:Name="cameraImage" Grid.Row="0"/>
                     <Button Grid.Row="1" Content="Camera" Click="Button_Click_2"/>
                 </Grid>
 
@@ -62,7 +66,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Name="WeatherBox"  Text=""/>
                     <Button Grid.Row="1" Content="Refresh Data" Click="Button_Click_1"/>
-                    <ProgressBar IsIndeterminate="True" HorizontalAlignment="Center" Height="20" Margin="0,222,-2,0" VerticalAlignment="Top" Width="458"/>
+                    <ProgressBar IsEnabled="False" IsIndeterminate="True" HorizontalAlignment="Center" Height="20" Margin="0,222,-2,0" VerticalAlignment="Top" Width="458"/>
                 </Grid>
 
             </phone:PivotItem>
