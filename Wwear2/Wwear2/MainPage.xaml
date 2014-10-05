@@ -15,7 +15,7 @@
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Mode="Minimized">
-            <shell:ApplicationBarIconButton x:Name="addItem" IconUri="Assets/AppBar/save.png" IsEnabled="True" Text="Add Item" Click="Add_Item"/>
+            <shell:ApplicationBarIconButton x:Name="addItem" IconUri="Assets/AppBar/save.png" IsEnabled="True" Text="Add Item" Click="shell_Clicked"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -70,14 +70,69 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Name="WeatherBox"  Text=""/>
+                    <TextBlock Grid.Row="0" Name="WeatherBox"  Text="Please refresh data to retrieve weather conditions."/>
                     <Button Grid.Row="1" Content="Refresh Data" Click="Button_Click_1"/>
-                    <ProgressBar IsEnabled="False" IsIndeterminate="True" HorizontalAlignment="Center" Height="20" Margin="0,222,-2,0" VerticalAlignment="Top" Width="458"/>
+                </Grid>
+
+            </phone:PivotItem>
+
+            <!--Pivot item three-->
+            <phone:PivotItem Header="Wardrobe" >
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="165"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="150"/>
+                    </Grid.RowDefinitions>
+
+                    <!--TitlePanel contains the name of the application and page title-->
+                    <StackPanel Grid.Row="0" Margin="12,17,0,28">
+                        <TextBox x:Name="newItemName" Text="New Item"  Margin="9,-7,0,0"  FontFamily="Portable User Interface"/>
+                    </StackPanel>
+
+                    <!--ContentPanel - place additional content here-->
+                    <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                        <Rectangle StrokeDashArray="15" HorizontalAlignment="Center" Height="150" Margin="10,10,0,0" VerticalAlignment="Top" Width="150" Stroke="White" StrokeDashCap="Square" StrokeDashOffset="1" StrokeThickness="2"/>
+                        <Image x:Name="imageFrame" HorizontalAlignment="Center" Height="150" Margin="10,10,0,0" VerticalAlignment="Top" Width="150"/>
+                        <Button  Margin="10,10,0,0" Height="150"  HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="0" Width="150" Click="Add_Item" />
+
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Grid.Column="0" x:Name="param1" ItemsSource="{Binding Group}" Width="auto" />
+                        <ListBox Grid.Column="1" x:Name="param2" ItemsSource="{Binding Group}"  Width="auto"/>
+                        <ListBox Grid.Column="2" x:Name="param3" ItemsSource="{Binding Group}"  Width="auto"/>
+                        <ListBox Grid.Column="3" x:Name="param4" ItemsSource="{Binding Group}"  Width="auto"/>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <RadioButton x:Name="headRadio" IsChecked="True" Content="Head" />
+                        <RadioButton x:Name="torsoRadio" Grid.Column="1" Content="Torso"/>
+                        <RadioButton x:Name="legRadio" Grid.Row="1" Content="Legs"/>
+                        <RadioButton x:Name="feetRadio" Grid.Row="1" Grid.Column="1"  Content="Feet"/>
+                    </Grid>
                 </Grid>
 
             </phone:PivotItem>
         </phone:Pivot>
 
+        
 
 
         <!--Uncomment to see an alignment grid to help ensure your controls are

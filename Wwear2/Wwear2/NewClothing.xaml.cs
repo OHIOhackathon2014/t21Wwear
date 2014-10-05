@@ -124,22 +124,22 @@ namespace Wwear2
         {
             string newCode = "";
 
-            if (p1 > 4)
+            if (p1 >= 4)
             {
                 newCode = newCode + 'x';
             } else { newCode = newCode +p1.ToString(); }
 
-            if (p2 > 3)
+            if (p2 >= 3)
             {
                 newCode = newCode + 'x';
             } else { newCode = newCode +p2.ToString(); }
 
-            if (p3 > 3)
+            if (p3 >= 3)
             {
                 newCode = newCode + 'x';
             } else { newCode = newCode +p3.ToString(); }
 
-            if (p4 > 3)
+            if (p4 >= 3)
             {
                 newCode = newCode + 'x';
             } else { newCode = newCode +p4.ToString(); }

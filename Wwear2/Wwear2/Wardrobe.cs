@@ -14,18 +14,19 @@ namespace Wwear2
         private static Dictionary<string, Clothes[]> legs = new Dictionary<string, Clothes[]>();
         private static Dictionary<string, Clothes[]> feet = new Dictionary<string, Clothes[]>();
         private static Random random = new Random();
+        private static int maxHats = 0, maxShirts = 0, maxPants = 0, maxShoes = 0;
 
         /* Key codes generated as 4 character strings */
         /* Codes are (General Weather, precipitation, wind, humidity) */
 
         public static void WardrobeSet()
         {
-            Clothes cloth0 = new Clothes("Hat", "", "xxxx", "head");
-            Clothes cloth1 = new Clothes("shirt", "", "xxxx", "head");
-            Clothes cloth2 = new Clothes("pants", "", "xxxx", "head");
-            Clothes cloth3 = new Clothes("shoes", "", "xxxx", "head");
+            Clothes cloth0 = new Clothes("Hat", "head", "3xxx", "head");
+            Clothes cloth1 = new Clothes("shirt", "body", "xxxx", "head");
+            Clothes cloth2 = new Clothes("pants", "legs", "xxxx", "head");
+            Clothes cloth3 = new Clothes("shoes", "feet", "xxxx", "head");
 
-            //addClothes("head",cloth0);
+            addClothes("head",cloth0);
             addClothes("body",cloth1);
             addClothes("legs",cloth2);
             addClothes("feet",cloth3);
@@ -35,6 +36,7 @@ namespace Wwear2
 
             if(typeOfClothes == "head"){
                 if(head.ContainsKey(cloth.TagString)){
+                    Debug.WriteLine("head addition success!");
                     head[cloth.TagString][head[cloth.TagString].Length-1] = cloth;
                 }
                 else
@@ -42,7 +44,10 @@ namespace Wwear2
                     Clothes[] clothArr = new Clothes[1];
                     clothArr[0] = cloth;
                     head.Add(cloth.TagString, clothArr);
+                    Debug.WriteLine("head addition success!else statement");
                 }
+
+                maxHats++;
             }
 
             if (typeOfClothes == "body")
@@ -57,6 +62,8 @@ namespace Wwear2
                     clothArr[0] = cloth;
                     body.Add(cloth.TagString, clothArr);
                 }
+
+                maxShirts++;
             }
 
             if (typeOfClothes == "legs")
@@ -71,6 +78,8 @@ namespace Wwear2
                     clothArr[0] = cloth;
                     legs.Add(cloth.TagString, clothArr);
                 }
+
+                maxPants++;
             }
 
             if (typeOfClothes == "feet")
@@ -85,6 +94,8 @@ namespace Wwear2
                     clothArr[0] = cloth;
                     feet.Add(cloth.TagString, clothArr);
                 }
+
+                maxShoes++; 
             }
         }
 
@@ -115,10 +126,11 @@ namespace Wwear2
             {
                 Debug.WriteLine("Entering for loop for permutation key checks");
                 correctedKey = fixX(permutations[i], generatedCode);
+                Debug.WriteLine("cprrected key: " + correctedKey);
                 if (head.ContainsKey(correctedKey))
                 {
                     Debug.WriteLine(permutations[i]);       
-                    hopefulClothes[a] = head[permutations[i]][random.Next(0,head[permutations[i]].Length-1)];
+                    hopefulClothes[a] = head[permutations[i]][random.Next(0,head[permutations[i]].Length)];
                     a++;
                 }
             }
@@ -131,7 +143,8 @@ namespace Wwear2
             }
             else
             {
-                return hopefulClothes[0];
+                Debug.WriteLine(maxHats);
+                return hopefulClothes[random.Next(0,a)];
             }
 
         }
@@ -162,26 +175,31 @@ namespace Wwear2
             int a = 0; //initial value count
             for (int i = 0; i < permutations.Length; i++)
             {
+                Debug.WriteLine("Entering for loop for permutation key checks");
                 correctedKey = fixX(permutations[i], generatedCode);
+                Debug.WriteLine("cprrected key: " + correctedKey);
                 if (body.ContainsKey(correctedKey))
                 {
                     Debug.WriteLine(permutations[i]);
-                    hopefulClothes[a] = body[permutations[i]][random.Next(0, body[permutations[i]].Length - 1)];
+                    hopefulClothes[a] = body[permutations[i]][random.Next(0, body[permutations[i]].Length)];
                     a++;
                 }
             }
 
             if (hopefulClothes.Length <= 0)
             {
-                Clothes close;
-                return close = new Clothes("No Clothes", "", "", "");
+                Clothes close = new Clothes("No Clothes", "", "", "");
+                Debug.WriteLine("Closing Cloth :(");
+                return close;
             }
             else
             {
-                return hopefulClothes[0];
+                Debug.WriteLine(maxHats);
+                return hopefulClothes[random.Next(0, a)];
             }
 
         }
+
 
         public static Clothes pickBottoms(string generatedCode)
         {
@@ -209,26 +227,31 @@ namespace Wwear2
             int a = 0; //initial value count
             for (int i = 0; i < permutations.Length; i++)
             {
+                Debug.WriteLine("Entering for loop for permutation key checks");
                 correctedKey = fixX(permutations[i], generatedCode);
+                Debug.WriteLine("cprrected key bottoms: " + correctedKey);
                 if (legs.ContainsKey(correctedKey))
                 {
                     Debug.WriteLine(permutations[i]);
-                    hopefulClothes[a] = legs[permutations[i]][random.Next(0, legs[permutations[i]].Length - 1)];
+                    hopefulClothes[a] = legs[permutations[i]][random.Next(0, legs[permutations[i]].Length)];
                     a++;
                 }
             }
 
             if (hopefulClothes.Length <= 0)
             {
-                Clothes close;
-                return close = new Clothes("No Clothes", "", "", "");
+                Clothes close = new Clothes("No Clothes", "", "", "");
+                Debug.WriteLine("Closing Cloth :(");
+                return close;
             }
             else
             {
-                return hopefulClothes[0];
+                Debug.WriteLine(maxHats);
+                return hopefulClothes[random.Next(0, a)];
             }
 
         }
+
 
         public static Clothes pickFeet(string generatedCode)
         {
@@ -256,26 +279,31 @@ namespace Wwear2
             int a = 0; //initial value count
             for (int i = 0; i < permutations.Length; i++)
             {
+                Debug.WriteLine("Entering for loop for permutation key checks");
                 correctedKey = fixX(permutations[i], generatedCode);
+                Debug.WriteLine("cprrected key: " + correctedKey);
                 if (feet.ContainsKey(correctedKey))
                 {
                     Debug.WriteLine(permutations[i]);
-                    hopefulClothes[a] = feet[permutations[i]][random.Next(0, feet[permutations[i]].Length - 1)];
+                    hopefulClothes[a] = feet[permutations[i]][random.Next(0, feet[permutations[i]].Length)];
                     a++;
                 }
             }
 
             if (hopefulClothes.Length <= 0)
             {
-                Clothes close;
-                return close = new Clothes("No Clothes", "", "", "");
+                Clothes close = new Clothes("No Clothes", "", "", "");
+                Debug.WriteLine("Closing Cloth :(");
+                return close;
             }
             else
             {
-                return hopefulClothes[0];
+                Debug.WriteLine(maxHats);
+                return hopefulClothes[random.Next(0, a)];
             }
 
         }
+
 
         private static string fixX(string tag, string generatedCode)
         {
