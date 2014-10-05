@@ -52,10 +52,10 @@
                         <RowDefinition Height="75"/>
                         <RowDefinition Height="75" />
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="HeadSuggestion" Grid.Row = "0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="120,0,0,0" Grid.RowSpan="2"/>
-                    <TextBlock x:Name="BodySuggestion" Grid.Row = "1"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="120,0,0,0" Grid.RowSpan="2"/>
-                    <TextBlock x:Name="LegSuggestion" Grid.Row = "2"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="120,0,0,0" Grid.RowSpan="2"/>
-                    <TextBlock x:Name="FeetSuggestion" Grid.Row = "3"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="120,10,0,-27"/>
+                    <TextBlock x:Name="HeadSuggestion" Grid.Row = "0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="56,0,0,0"/>
+                    <TextBlock x:Name="BodySuggestion" Grid.Row = "1"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="56,3,0,0"/>
+                    <TextBlock x:Name="LegSuggestion" Grid.Row = "1"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="56,73,0,0" Grid.RowSpan="2"/>
+                    <TextBlock x:Name="FeetSuggestion" Grid.Row = "3"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="50" Margin="56,10,0,0" Grid.RowSpan="2"/>
                     <Button Grid.Row="4" Content = "Pick Outfit" Click="suggestClothes" VerticalAlignment="Bottom" Height="100" Margin="0,0,0,-146"/>
                 </Grid>
 

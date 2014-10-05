@@ -44,6 +44,16 @@ namespace Wwear2
             }
 
             getLocation();
+            updateWeather();
+
+            Wardrobe war = new Wardrobe();
+            Clothes addMe = new Clothes("Wool Hat","hat","3xxx","head");
+            war.addClothes("head", addMe);
+            Clothes cloth = war.pickHat("3111");
+            addMe = new Clothes("Unicorn Hat", "hat", "3xxx", "head");
+            war.addClothes("head", addMe);
+            cloth = war.pickHat("3211");
+            Debug.WriteLine(cloth.ClothesName);
         }
 
         private async void getLocation()
