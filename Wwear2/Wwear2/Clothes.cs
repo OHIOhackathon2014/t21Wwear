@@ -12,11 +12,13 @@ namespace Wwear2
         private string typeOfClothes = "notype";
         private string tagString = "xxxx";
         private string clothesSection = "nosection";
+        private string imageLocation = "no image";
 
         public string ClothesName { get { return clothesName; } set { clothesName = value; } }
         public string TypeOfClothes { get { return typeOfClothes; } set { typeOfClothes = value; } }
         public string TagString { get { return tagString; } set { tagString = value; } }
         public string ClothesSection { get { return clothesSection; } set { clothesSection = value; } }
+        public string ImageLocation { get { return imageLocation; } set { imageLocation = value; } }
 
         public Clothes(string name, string typeOfC, string tagS, string clothesSec){
             clothesName = name;

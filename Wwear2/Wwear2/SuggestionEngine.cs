@@ -14,6 +14,16 @@ namespace Wwear2
         private int REFERENCECOLD = 10;
         private int REFERENCESPEED = 15;
 
+        private int temperature, windSppeed, humidity, chanceOfPrecipitation;
+
+        public SuggestionEngine(int temperature, int windSpeed,int humidity, int chanceOfPrecipitation)
+        {
+            this.temperature = temperature;
+            this.windSppeed = windSpeed;
+            this.humidity = humidity;
+            this.chanceOfPrecipitation = chanceOfPrecipitation;
+        }
+
         /*
          * @param temp
          *      actual temperature
@@ -23,7 +33,7 @@ namespace Wwear2
          *      0 if hot 1 if normal 2 if cold 3 if freezing
          */
 
-        public SuggestionEngine(int RT, int RH, int RF, int RC, int RS)
+        public void setReference(int RT, int RH, int RF, int RC, int RS)
         {
             REFERENCETEMP = RT;
             REFERENCEHUMIDITY = RH;
@@ -122,14 +132,15 @@ namespace Wwear2
             return returnvalue;
         }
 
-        public char[] setValue(int temp, int windChill, int chancePrecipitation, int windSpeed, int humidity)
+        public string setValue(/*int temp,  int chancePrecipitation, int windSpeed, int humidity*/)
         {
             char[] charString = new char[4];
-            charString[0] = setGeneral(temp, windChill).ToString().ToCharArray()[0];
-            charString[1] = setPrecipitation(chancePrecipitation, temp).ToString().ToCharArray()[0];
-            charString[2] = setWind(windSpeed).ToString().ToCharArray()[0];
+            int windChill = (int)(35.74 + 0.6215 * temperature - 35.75 * Math.Pow(windSppeed, 0.16) + 0.4275 * temperature * Math.Pow(windSppeed, 0.16));
+            charString[0] = setGeneral(temperature, windChill).ToString().ToCharArray()[0];
+            charString[1] = setPrecipitation(chanceOfPrecipitation, temperature).ToString().ToCharArray()[0];
+            charString[2] = setWind(windSppeed).ToString().ToCharArray()[0];
             charString[3] = setHumid(humidity).ToString().ToCharArray()[0];
-            return charString;
+            return "" + charString[0] + charString[1] + charString[2] + charString[3];
         }
     }
 }

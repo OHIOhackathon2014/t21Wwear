@@ -21,10 +21,8 @@ namespace Wwear2
     {
 
         Forecast fourcast;
-        string hat = "Baseball Cap";
-        string body = "T-Shirt";
-        string legs = "Sweat Pants";
-        string shoes = "Boots";
+
+        string weatherCode;
 
         // Constructor
         public MainPage()
@@ -46,14 +44,14 @@ namespace Wwear2
             getLocation();
             updateWeather();
 
-            Wardrobe war = new Wardrobe();
             Clothes addMe = new Clothes("Wool Hat","hat","3xxx","head");
-            war.addClothes("head", addMe);
-            Clothes cloth = war.pickHat("3111");
+            Wardrobe.addClothes("head", addMe);
+            Clothes cloth = Wardrobe.pickHat("3111");
             addMe = new Clothes("Unicorn Hat", "hat", "3xxx", "head");
-            war.addClothes("head", addMe);
-            cloth = war.pickHat("3211");
+            Wardrobe.addClothes("head", addMe);
+            cloth = Wardrobe.pickHat("3211");
             Debug.WriteLine(cloth.ClothesName);
+            Wardrobe.WardrobeSet();
         }
 
         private async void getLocation()
@@ -99,6 +97,14 @@ namespace Wwear2
 
             getLocation();
             updateWeather();
+            int windSpeed, humidity, precipitation;
+            int.TryParse(fourcast.windspeedMph, out windSpeed);
+            int.TryParse(fourcast.humidity, out humidity);
+            int.TryParse(fourcast.precip, out precipitation);
+            SuggestionEngine setWeather = new SuggestionEngine((int)fourcast.tempMinF, windSpeed, humidity, precipitation);
+            weatherCode = setWeather.setValue();
+            Debug.WriteLine("Weather Code = " + weatherCode);
+            
         }
 
         private void Add_Item(object sender, EventArgs e)
@@ -108,43 +114,10 @@ namespace Wwear2
 
         private void suggestClothes(object sender, RoutedEventArgs e)
         {
-            //Suggest Hat
-            if (fourcast.tempMinF > 30)
-            {
-                HeadSuggestion.Text = hat;
-            }
-            else
-            {
-                HeadSuggestion.Text = "No Hat Bro";
-            }
-            //Suggest body
-            if (fourcast.tempMinF < 50)
-            {
-                BodySuggestion.Text = body;
-            }
-            else
-            {
-                BodySuggestion.Text = "No shirts Bro";
-            }
-            //Suggest pants
-            if (fourcast.tempMinF < 30)
-            {
-                LegSuggestion.Text = legs;
-            }
-            else
-            {
-                LegSuggestion.Text = "No Pants Bro";
-            }
-
-            //Suggest feet
-            if (fourcast.tempMinF < 30)
-            {
-                FeetSuggestion.Text = shoes;
-            }
-            else
-            {
-                FeetSuggestion.Text = "No boots pour vous";
-            }
+            HeadSuggestion.Text = Wardrobe.pickHat(weatherCode).ClothesName;
+            BodySuggestion.Text = Wardrobe.pickTop(weatherCode).ClothesName;
+            LegSuggestion.Text = Wardrobe.pickBottoms(weatherCode).ClothesName;
+            FeetSuggestion.Text = Wardrobe.pickFeet(weatherCode).ClothesName;
         }
 
         private void updateWeather(){

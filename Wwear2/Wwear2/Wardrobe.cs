@@ -9,22 +9,29 @@ namespace Wwear2
 {
     class Wardrobe
     {
-        private Dictionary<string, Clothes[]> head = new Dictionary<string, Clothes[]>();
-        private Dictionary<string, Clothes[]> body = new Dictionary<string, Clothes[]>();
-        private Dictionary<string, Clothes[]> legs = new Dictionary<string, Clothes[]>();
-        private Dictionary<string, Clothes[]> feet = new Dictionary<string, Clothes[]>();
-        private Random random = new Random();
+        private static Dictionary<string, Clothes[]> head = new Dictionary<string, Clothes[]>();
+        private static Dictionary<string, Clothes[]> body = new Dictionary<string, Clothes[]>();
+        private static Dictionary<string, Clothes[]> legs = new Dictionary<string, Clothes[]>();
+        private static Dictionary<string, Clothes[]> feet = new Dictionary<string, Clothes[]>();
+        private static Random random = new Random();
 
         /* Key codes generated as 4 character strings */
         /* Codes are (General Weather, precipitation, wind, humidity) */
 
-        public Wardrobe()
+        public static void WardrobeSet()
         {
-            
+            Clothes cloth0 = new Clothes("Hat", "", "xxxx", "head");
+            Clothes cloth1 = new Clothes("shirt", "", "xxxx", "head");
+            Clothes cloth2 = new Clothes("pants", "", "xxxx", "head");
+            Clothes cloth3 = new Clothes("shoes", "", "xxxx", "head");
+
+            //addClothes("head",cloth0);
+            addClothes("body",cloth1);
+            addClothes("legs",cloth2);
+            addClothes("feet",cloth3);
         }
 
-
-        public void addClothes(string typeOfClothes, Clothes cloth){
+        public static void addClothes(string typeOfClothes, Clothes cloth){
 
             if(typeOfClothes == "head"){
                 if(head.ContainsKey(cloth.TagString)){
@@ -81,7 +88,7 @@ namespace Wwear2
             }
         }
 
-        public Clothes pickHat(string generatedCode){
+        public static Clothes pickHat(string generatedCode){
             string[] permutations = { "" + generatedCode[0] + generatedCode[1] + generatedCode[2] + 'x',
                                       "" + generatedCode[0] + generatedCode[1] + 'x' + generatedCode[3],
                                       "" + generatedCode[0] + generatedCode[1] + 'x' + 'x',
@@ -129,7 +136,7 @@ namespace Wwear2
 
         }
 
-        public Clothes pickTop(string generatedCode)
+        public static Clothes pickTop(string generatedCode)
         {
             string[] permutations = { "" + generatedCode[0] + generatedCode[1] + generatedCode[2] + 'x',
                                       "" + generatedCode[0] + generatedCode[1] + 'x' + generatedCode[3],
@@ -176,7 +183,7 @@ namespace Wwear2
 
         }
 
-        public Clothes pickBottoms(string generatedCode)
+        public static Clothes pickBottoms(string generatedCode)
         {
             string[] permutations = { "" + generatedCode[0] + generatedCode[1] + generatedCode[2] + 'x',
                                       "" + generatedCode[0] + generatedCode[1] + 'x' + generatedCode[3],
@@ -223,7 +230,7 @@ namespace Wwear2
 
         }
 
-        public Clothes pickFeet(string generatedCode)
+        public static Clothes pickFeet(string generatedCode)
         {
             string[] permutations = { "" + generatedCode[0] + generatedCode[1] + generatedCode[2] + 'x',
                                       "" + generatedCode[0] + generatedCode[1] + 'x' + generatedCode[3],
@@ -270,7 +277,7 @@ namespace Wwear2
 
         }
 
-        private string fixX(string tag, string generatedCode)
+        private static string fixX(string tag, string generatedCode)
         {
             char[] returnTag = generatedCode.ToCharArray();
             for (int i = 0; i < tag.Length; i++)

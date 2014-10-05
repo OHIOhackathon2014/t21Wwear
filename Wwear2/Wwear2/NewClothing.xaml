@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -22,28 +23,56 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="240"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="WeatherWear" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="New Item" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="New WeatherWear Item" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBox x:Name="newItemName" Text="New Item"  Margin="9,-7,0,0"  FontFamily="Portable User Interface"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Rectangle StrokeDashArray="15" HorizontalAlignment="Left" Height="216" Margin="10,10,0,0" VerticalAlignment="Top" Width="436" Stroke="White" StrokeDashCap="Square" StrokeDashOffset="1" StrokeThickness="2"/>
-            <Image x:Name="imageFrame" HorizontalAlignment="Left" Height="216" Margin="10,10,0,0" VerticalAlignment="Top" Width="436"/>
-            <Button HorizontalAlignment="Left" Margin="10,10,0,0" Height="216"  VerticalAlignment="Top" BorderThickness="0" Width="436" Click="Add_Item"/>
-            
+            <Rectangle StrokeDashArray="15" HorizontalAlignment="Center" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="200" Stroke="White" StrokeDashCap="Square" StrokeDashOffset="1" StrokeThickness="2"/>
+            <Image x:Name="imageFrame" HorizontalAlignment="Center" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
+            <Button  Margin="10,10,0,0" Height="200"  HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="0" Width="200" Click="Add_Item" />
+
+
 
 
         </Grid>
         
         <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" x:Name="param1" ItemsSource="{Binding Group}" Width="auto" />
+            <ListBox Grid.Column="1" x:Name="param2" ItemsSource="{Binding Group}"  Width="auto"/>
+            <ListBox Grid.Column="2" x:Name="param3" ItemsSource="{Binding Group}"  Width="auto"/>
+            <ListBox Grid.Column="3" x:Name="param4" ItemsSource="{Binding Group}"  Width="auto"/>
+        </Grid>
+        
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <RadioButton x:Name="headRadio" IsChecked="True" Content="Head" />
+            <RadioButton x:Name="torsoRadio" Grid.Column="1" Content="Torso"/>
+            <RadioButton x:Name="legRadio" Grid.Row="1" Content="Legs"/>
+            <RadioButton x:Name="feetRadio" Grid.Row="1" Grid.Column="1"  Content="Feet"/>
         </Grid>
     </Grid>
+    
 
 </phone:PhoneApplicationPage>
